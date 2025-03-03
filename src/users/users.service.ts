@@ -11,19 +11,23 @@ import * as bcrypt from "bcrypt";
 export class UsersService {
     constructor(private readonly prismaService: PrismaService) {}
     async create(createUserDto: CreateUserDto) {
-        if (createUserDto.password != createUserDto.confirm_password) {
-            throw new BadRequestException("parollar mos emas");
+        if (createUserDto.password !== createUserDto.confirm_password) {
+            throw new BadRequestException("Parollar mos emas");
         }
+    
         const hashedPassword = await bcrypt.hash(createUserDto.password, 7);
         const data = {
-            age:createUserDto.age,
-            gender:createUserDto.gender,
             email: createUserDto.email,
-            hashedPassword,
+            password_hash: hashedPassword,
+            age: createUserDto.age,  
+            gender: createUserDto.gender, 
         };
+    
         const newUser = await this.prismaService.user.create({ data });
         return newUser;
     }
+    
+    
 
     findAll() {
         return this.prismaService.user.findMany();
@@ -46,12 +50,22 @@ export class UsersService {
     }
 
     async update(id: number, updateUserDto: UpdateUserDto) {
-        this.findOne(id);
-        return this.prismaService.user.update({
-            where: { id },
-            data: { ...updateUserDto },
-        });
+        if (updateUserDto.password && updateUserDto.password !== updateUserDto.confirm_password) {
+            throw new BadRequestException("Parollar mos emas!");
+        }
+    
+        const data: any = { ...updateUserDto };
+        delete data.confirm_password; 
+    
+        if (data.password) {
+            data.password_hash = await bcrypt.hash(data.password, 7);
+            delete data.password;
+        }
+    
+        return this.prismaService.user.update({ where: { id }, data });
     }
+    
+    
 
     async remove(id: number) {
         const user = await this.findOne(id);
@@ -62,7 +76,7 @@ export class UsersService {
         const updatedUser = await this.prismaService.user.update(
             {
               where: { id },
-              data:{ hashedToken:hashed_refresh_token },
+              data:{ hashed_token:hashed_refresh_token },
             }
         );
     

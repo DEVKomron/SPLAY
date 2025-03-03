@@ -50,7 +50,7 @@ export class AdminService {
         const payload = {
             id: admin.id,
             is_active: admin.is_active,
-            is_creator: admin.is_owner,
+            is_creator: admin.is_creator,
             email: admin.email,
         };
         const [accessToken, refreshToken] = await Promise.all([

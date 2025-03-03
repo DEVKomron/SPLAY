@@ -76,7 +76,7 @@ export class AuthService {
         }
         const validPassword = await bcrypt.compare(
             userSignInDto.password,
-            user.hashedPassword
+            user.password_hash
         );
         if (!validPassword) {
             throw new UnauthorizedException("Invalid Email or password");
@@ -256,11 +256,11 @@ export class AuthService {
         }
 
         const user = await this.userService.findOne(+id);
-        if (!user || !user.hashedToken) {
+        if (!user || !user.hashed_token) {
             throw new BadRequestException("user not found");
         }
 
-        const tokenMatch = await bcrypt.compare(refreshToken, user.hashedToken);
+        const tokenMatch = await bcrypt.compare(refreshToken, user.hashed_token);
 
         if (!tokenMatch) {
             throw new ForbiddenException("Forbidden");
