@@ -14,10 +14,12 @@ import { ContentModule } from "./content/content.module";
 import { CategoryContentModule } from "./category-content/category-content.module";
 import { CategoryModule } from './category/category.module';
 import { UsersModule } from "./users/users.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env", isGlobal: true }),
+    AuthModule,
     UsersModule,
     DevicesModule,
     PaymentMethodModule,

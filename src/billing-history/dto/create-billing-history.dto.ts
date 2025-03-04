@@ -44,7 +44,6 @@ export class CreateBillingHistoryDto {
         description: "Tolov sanasi. Majburiy maydon.",
         example: "2025-03-03T12:00:00.000Z",
     })
-    @IsDate()
     @IsNotEmpty()
     readonly date: Date;
 

@@ -1,41 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
-import { UpdateDeviceDto } from './dto/update-device.dto';
 
 @Injectable()
 export class DevicesService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(createDeviceDto: CreateDeviceDto) {
-    return this.prismaService.devices.create({
-      data: {
-      ...createDeviceDto,
-      device_name: createDeviceDto.device_name,
-      last_active: createDeviceDto.last_active ?? new Date(),
+  async createDevice(dto: CreateDeviceDto) {
+    return this.prisma.devices.create({
+      data: { 
+        ...dto, 
+        last_active: dto.last_active ? new Date(dto.last_active) : new Date(),
+        ip_address: dto.ip_address ?? '' 
       },
     });
   }
 
-  findAll() {
-    return this.prismaService.devices.findMany();
+  async getAllDevices() {
+    return this.prisma.devices.findMany();
   }
 
-  findOne(id: number) {
-    return this.prismaService.devices.findUnique({
+  async getDeviceById(id: number) {
+    return this.prisma.devices.findUnique({
       where: { id },
     });
   }
 
-  update(id: number, updateDeviceDto: UpdateDeviceDto) {
-    return this.prismaService.devices.update({
-      where: { id },
-      data: updateDeviceDto,
+  async getDevicesByUserId(userId: number) {
+    return this.prisma.devices.findMany({
+      where: { userId },
     });
   }
 
-  remove(id: number) {
-    return this.prismaService.devices.delete({
+  async updateDevice(id: number, dto: Partial<CreateDeviceDto>) {
+    return this.prisma.devices.update({
+      where: { id },
+      data: dto,
+    });
+  }
+
+  async deleteDevice(id: number) {
+    return this.prisma.devices.delete({
       where: { id },
     });
   }

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateCategoryContentDto {
     @ApiProperty({
@@ -8,7 +8,7 @@ export class CreateCategoryContentDto {
     })
     @IsNumber()
     @IsNotEmpty()
-    readonly category_id: number;
+    readonly categoryId: number;
 
     @ApiProperty({
         description: "Kontent ID raqami. Ushbu maydon majburiy.",
@@ -16,5 +16,5 @@ export class CreateCategoryContentDto {
     })
     @IsNumber()
     @IsNotEmpty()
-    readonly content_id: number;
+    readonly contentId: number;
 }

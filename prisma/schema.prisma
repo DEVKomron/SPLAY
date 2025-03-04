@@ -15,24 +15,24 @@ datasource db {
 
 model Devices {
   id          Int      @id @default(autoincrement())
-  userId      Int?
+  userId      Int     
   device_type String
   device_name String
   ip_address  String
   last_active DateTime
-  User        User?    @relation(fields: [userId], references: [id])
+  User        User     @relation(fields: [userId], references: [id]) 
 
   @@map("Devices")
 }
 
 model Admin {
-  id            Int     @id @default(autoincrement())
-  first_name    String
-  last_name     String
-  email         String  @unique
-  is_active     Boolean @default(false)
-  is_creator    Boolean @default(false)
-  hashed_password String
+  id                   Int     @id @default(autoincrement())
+  first_name           String
+  last_name            String
+  email                String  @unique
+  is_active            Boolean @default(false)
+  is_creator           Boolean @default(false)
+  hashed_password      String
   hashed_refresh_token String?
 
   @@map("Admin")
@@ -51,8 +51,8 @@ model User {
   password_hash String
   hashed_token  String?
 
-  age     Int  
-  gender  String 
+  age    Int
+  gender String
 
   @@map("User")
 }
@@ -207,11 +207,10 @@ model Content {
 
 model CategoryContent {
   id          Int       @id @default(autoincrement())
-  category_id Int
-  Content     Content?  @relation(fields: [contentId], references: [id])
-  contentId   Int?
-  Category    Category? @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
+  Content     Content  @relation(fields: [contentId], references: [id])
+  contentId   Int
+  Category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int
 
   @@map("CategoryContent")
 }

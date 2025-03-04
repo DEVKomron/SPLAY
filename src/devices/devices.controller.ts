@@ -9,26 +9,26 @@ export class DevicesController {
 
   @Post()
   create(@Body() createDeviceDto: CreateDeviceDto) {
-    return this.devicesService.create(createDeviceDto);
+    return this.devicesService.createDevice(createDeviceDto);
   }
 
   @Get()
   findAll() {
-    return this.devicesService.findAll();
+    return this.devicesService.getAllDevices();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.devicesService.findOne(+id);
+    return this.devicesService.getDeviceById(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDeviceDto: UpdateDeviceDto) {
-    return this.devicesService.update(+id, updateDeviceDto);
+    return this.devicesService.updateDevice(+id, updateDeviceDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.devicesService.remove(+id);
+    return this.devicesService.deleteDevice(+id);
   }
 }

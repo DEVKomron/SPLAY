@@ -33,7 +33,6 @@ export class CreateSubscriptionDto {
     readonly is_active: boolean;
 
     @ApiProperty({ example: 9.99, description: "So‘nggi to‘langan summa." })
-    @IsDecimal()
     @IsNotEmpty()
     readonly last_amount_paid: number;
 
