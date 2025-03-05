@@ -15,6 +15,8 @@ import { CategoryContentModule } from "./category-content/category-content.modul
 import { CategoryModule } from './category/category.module';
 import { UsersModule } from "./users/users.module";
 import { AuthModule } from "./auth/auth.module";
+import { EpisodeAudioModule } from './episode-audio/episode-audio.module';
+import { ContentGenreModule } from './content-genre/content-genre.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { AuthModule } from "./auth/auth.module";
     ContentModule,
     CategoryContentModule,
     CategoryModule,
+    EpisodeAudioModule,
+    ContentGenreModule,
   ],
   controllers: [],
   providers: [],

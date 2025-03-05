@@ -15,12 +15,12 @@ datasource db {
 
 model Devices {
   id          Int      @id @default(autoincrement())
-  userId      Int     
+  userId      Int
   device_type String
   device_name String
   ip_address  String
   last_active DateTime
-  User        User     @relation(fields: [userId], references: [id]) 
+  User        User     @relation(fields: [userId], references: [id])
 
   @@map("Devices")
 }
@@ -206,11 +206,11 @@ model Content {
 }
 
 model CategoryContent {
-  id          Int       @id @default(autoincrement())
-  Content     Content  @relation(fields: [contentId], references: [id])
-  contentId   Int
-  Category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
+  id         Int      @id @default(autoincrement())
+  Content    Content  @relation(fields: [contentId], references: [id])
+  contentId  Int
+  Category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
 
   @@map("CategoryContent")
 }
@@ -229,10 +229,8 @@ model ContentGenres {
   id         Int      @id @default(autoincrement())
   content_id Int
   genre_id   Int
-  Content    Content? @relation(fields: [contentId], references: [id])
-  contentId  Int?
-  Genres     Genres?  @relation(fields: [genresId], references: [id])
-  genresId   Int?
+  Content    Content? @relation(fields: [content_id], references: [id])
+  Genres     Genres?  @relation(fields: [genre_id], references: [id])
 
   @@map("ContentGenres")
 }

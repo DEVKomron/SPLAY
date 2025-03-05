@@ -5,6 +5,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { UsersModule } from "../users/users.module";
 import { PrismaModule } from "../prisma/prisma.module";
 import { AdminModule } from "../admin/admin.module";
+import { RefreshTokenCookieStrategy } from "src/common/strategies";
 
 @Module({
     imports: [
@@ -14,6 +15,6 @@ import { AdminModule } from "../admin/admin.module";
         AdminModule,
     ],
     controllers: [AuthController],
-    providers: [AuthService],
+    providers: [AuthService, RefreshTokenCookieStrategy],
 })
 export class AuthModule {}

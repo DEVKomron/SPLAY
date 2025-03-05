@@ -69,8 +69,16 @@ export class UsersService {
 
     async remove(id: number) {
         const user = await this.findOne(id);
-        return this.prismaService.user.delete({ where: { id } });
-    }
+      
+        await this.prismaService.devices.deleteMany({
+          where: { userId: id },
+        });
+      
+        return this.prismaService.user.delete({
+          where: { id },
+        });
+      }
+      
 
     async updateRefreshToken(id: number, hashed_refresh_token: string | null) {
         const updatedUser = await this.prismaService.user.update(
